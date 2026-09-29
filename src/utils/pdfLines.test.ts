@@ -95,7 +95,7 @@ describe('linesFromItems', () => {
       { str: '8746', x: 400, y: 500 },
       { str: '2215', x: 440, y: 500 },
       { str: '345.80', x: 480, y: 500 },
-      { str: 'CHI/HSUAN', x: 110, y: 488 },
+      { str: 'SMITH/JOHN', x: 110, y: 488 },
       { str: '08/05', x: 160, y: 488 },
       { str: 'LGA/ORD', x: 200, y: 488 },
       { str: 'RNDTRP', x: 250, y: 488 },
@@ -106,7 +106,7 @@ describe('linesFromItems', () => {
       { str: '8753', x: 400, y: 476 },
       { str: '2215', x: 440, y: 476 },
       { str: '345.80', x: 480, y: 476 },
-      { str: 'HUANG/YUNJOU', x: 110, y: 464 },
+      { str: 'DOE/JANE', x: 110, y: 464 },
       { str: '08/05', x: 170, y: 464 },
       { str: 'LGA/ORD', x: 210, y: 464 },
       { str: 'RNDTRP', x: 260, y: 464 },
@@ -115,8 +115,8 @@ describe('linesFromItems', () => {
 
     expect(linesFromItems(items)).toBe(
       [
-        '07/27 07/27 AMERICAN AIR0012363314781FORT WORTH TX 8746 2215 345.80 | CHI/HSUAN 08/05 LGA/ORD RNDTRP ORD/LGA',
-        '07/27 07/27 AMERICAN AIR0012363314782FORT WORTH TX 8753 2215 345.80 | HUANG/YUNJOU 08/05 LGA/ORD RNDTRP ORD/LGA',
+        '07/27 07/27 AMERICAN AIR0012363314781FORT WORTH TX 8746 2215 345.80 | SMITH/JOHN 08/05 LGA/ORD RNDTRP ORD/LGA',
+        '07/27 07/27 AMERICAN AIR0012363314782FORT WORTH TX 8753 2215 345.80 | DOE/JANE 08/05 LGA/ORD RNDTRP ORD/LGA',
       ].join('\n')
     );
   });
@@ -126,10 +126,10 @@ describe('mergeContinuationLines', () => {
   it('merges a non-date line into the transaction row above it', () => {
     const text = [
       '07/27 07/27 AMERICAN AIR... 345.80',
-      'CHI/HSUAN 08/05 LGA/ORD RNDTRP ORD/LGA',
+      'SMITH/JOHN 08/05 LGA/ORD RNDTRP ORD/LGA',
     ].join('\n');
     expect(mergeContinuationLines(text)).toBe(
-      '07/27 07/27 AMERICAN AIR... 345.80 | CHI/HSUAN 08/05 LGA/ORD RNDTRP ORD/LGA'
+      '07/27 07/27 AMERICAN AIR... 345.80 | SMITH/JOHN 08/05 LGA/ORD RNDTRP ORD/LGA'
     );
   });
 

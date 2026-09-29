@@ -74,7 +74,12 @@ const HAS_DIGIT = /\d/;
 /** Merge a "continuation" line — one with no date/amount of its own, such as
  *  a passenger name and flight itinerary printed under an airline charge, or
  *  a memo line under a purchase — into the transaction row directly above it.
-
+ *
+ *  Without this, a line like "SMITH/JOHN 08/05 LGA/ORD RNDTRP ORD/LGA" sits on
+ *  its own line right after its transaction row, and an LLM asked to extract
+ *  "clean" transaction rows can end up treating it as an ambiguous row of its
+ *  own and skipping the whole charge. Folding it into the row above removes
+ *  that ambiguity structurally instead of relying on prompt wording alone. */
 export function mergeContinuationLines(text: string): string {
   const lines = text.split('\n');
   const merged: string[] = [];
